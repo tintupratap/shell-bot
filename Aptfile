@@ -1,0 +1,5 @@
+build-essential
+nodejs
+make
+python
+git
