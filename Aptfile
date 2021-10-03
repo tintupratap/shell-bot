@@ -1,5 +1,6 @@
 build-essential
-nodejs
+#nodejs
 make
 python
 git
+npm
