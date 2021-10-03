@@ -2,4 +2,4 @@ python
 git
 make
 build-essential
-nodejs-lts
+nodejs
