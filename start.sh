@@ -1,1 +1,1 @@
-npm i && npm start
+npm start && bash loop.sh
