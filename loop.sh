@@ -1,1 +1,2 @@
-npm start && bash start.sh
+npm start
+bash start.sh

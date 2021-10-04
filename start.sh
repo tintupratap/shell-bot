@@ -1,1 +1,2 @@
-npm start && bash loop.sh
+npm start
+bash loop.sh

@@ -2,3 +2,6 @@ build-essential
 make
 git
 python
+htop
+bmon
+curl
