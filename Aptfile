@@ -1,7 +1,12 @@
 build-essential
 make
+curl
+file
 git
-python
 htop
 bmon
-curl
+python
+golang
+clang
+cargo
+sudo
