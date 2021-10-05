@@ -5,7 +5,7 @@ file
 git
 htop
 bmon
-#python
-#golang
-#clang
-#cargo
+python
+golang
+clang
+cargo
