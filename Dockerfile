@@ -3,7 +3,7 @@ FROM debian:latest
 
 
 # User setup
-RUN apt-get update && apt-get install apt-utils sudo npm nodejs git -y
+#RUN apt-get update && apt-get install apt-utils sudo npm nodejs git -y
 #RUN useradd -m coder
 RUN mkdir /home/coder/
 #RUN echo "coder:coder" | chpasswd

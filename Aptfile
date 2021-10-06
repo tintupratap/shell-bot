@@ -1,0 +1,15 @@
+build-essential
+make
+curl
+file
+git
+htop
+bmon
+python
+golang
+clang
+cargo
+apt-utils
+sudo
+npm
+nodejs
