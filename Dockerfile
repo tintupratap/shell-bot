@@ -22,15 +22,20 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER coder
 
 # Apply Bot settings
-COPY ./shell-bot /home/coder/.shell-bot
+#COPY ./shell-bot /home/coder/.shell-bot
 
 # Use bash shell
 ENV SHELL=/bin/bash
 
 # Install packages
-RUN sudo apt-get update && sudo apt-get install nodejs npm -y
+RUN sudo apt-get update && sudo apt-get install nodejs npm git -y
 
 # Fix permissions for bot
+RUN git clone https://github.com/botgram/shell-bot /home/coder/.shell-bot
+RUN echo """{
+    "authToken": "1753768172:AAHfN-yHY14dmm_m6tS-A6sMfDSWbwGnK4M",
+    "owner": 238675017
+}""" >>  /home/coder/.shell-bot/config.json
 RUN sudo chown -R coder:coder /home/coder/.shell-bot
 RUN chmod +x /home/coder/.shell-bot/start.sh
 WORKDIR /home/coder/.shell-bot
