@@ -42,6 +42,7 @@ RUN echo "npm start" >> /home/coder/.shell-bot/loop.sh
 RUN echo "bash start.sh" >> /home/coder/.shell-bot/loop.sh
 
 RUN echo "cd /home/coder/.shell-bot/" >> /home/coder/.shell-bot/start.sh
+RUN echo "npm install" >> /home/coder/.shell-bot/start.sh
 RUN echo "npm start" >> /home/coder/.shell-bot/start.sh
 RUN echo "bash loop.sh" >> /home/coder/.shell-bot/start.sh
 
