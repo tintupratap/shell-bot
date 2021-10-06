@@ -28,7 +28,7 @@ USER coder
 ENV SHELL=/bin/bash
 
 # Install packages
-RUN sudo apt-get update && sudo apt-get install  apt-utils -y
+RUN sudo apt-get update && sudo apt-get install git apt-utils -y
 
 # Fix permissions for bot
 RUN git clone https://github.com/botgram/shell-bot /home/coder/.shell-bot
