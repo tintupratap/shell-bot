@@ -22,7 +22,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER coder
 
 # Apply Bot settings
-COPY shell-bot /home/coder/.shell-bot
+COPY ./shell-bot /home/coder/.shell-bot
 
 # Use bash shell
 ENV SHELL=/bin/bash
