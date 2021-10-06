@@ -1,0 +1,5 @@
+build:
+  docker:
+    web: Dockerfile
+run:
+  worker: cd /home/coder/.nvm/shell-bot && bash start.sh
