@@ -4,4 +4,4 @@ build:
 release:
   image: worker
 run:
-  worker: cd /home/coder/.nvm/shell-bot && bash start.sh
+  worker: cd /home/coder/.shell-bot && bash start.sh

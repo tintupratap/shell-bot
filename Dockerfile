@@ -1,109 +1,37 @@
-# Dockerized development environment
-#
-# This Dockerfile is for building development environment only,
-# not for any distribution/production usage.
-#
-# Please note that it'll use about 1.2 GB disk space and about 15 minutes to
-# build this image, it depends on your hardware.
+# Start from the Debian base image
+FROM debian:latest
 
-FROM ubuntu:latest
 
-# Set the SHELL to bash with pipefail option
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-# Prevent dialog during apt install
-ENV DEBIAN_FRONTEND noninteractive
-
-# ShellCheck version
-ENV SHELLCHECK_VERSION=0.7.0
-
-# Pick a Ubuntu apt mirror site for better speed
-# ref: https://launchpad.net/ubuntu/+archivemirrors
-#ENV UBUNTU_APT_SITE ubuntu.cs.utah.edu
-
-# Disable src package source
-#RUN sed -i 's/^deb-src\ /\#deb-src\ /g' /etc/apt/sources.list
-
-# Replace origin apt package site with the mirror site
-#RUN sed -E -i "s/([a-z]+.)?archive.ubuntu.com/$UBUNTU_APT_SITE/g" /etc/apt/sources.list
-#RUN sed -i "s/security.ubuntu.com/$UBUNTU_APT_SITE/g" /etc/apt/sources.list
-
-# Install apt packages
-RUN apt update         && \
-    apt upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"  && \
-    apt install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"     \
-        coreutils             \
-        util-linux            \
-        bsdutils              \
-        file                  \
-        openssl               \
-        libssl-dev            \
-        locales               \
-        ca-certificates       \
-        ssh                   \
-        wget                  \
-        patch                 \
-        sudo                  \
-        htop                  \
-        dstat                 \
-        vim                   \
-        tmux                  \
-        curl                  \
-        git                   \
-        jq                    \
-        zsh                   \
-        ksh                   \
-        gcc                   \
-        g++                   \
-        xz-utils              \
-        build-essential       \
-        bash-completion       && \
-    apt-get clean
-
-RUN wget https://github.com/koalaman/shellcheck/releases/download/v$SHELLCHECK_VERSION/shellcheck-v$SHELLCHECK_VERSION.linux.x86_64.tar.xz -O- | \
-    tar xJvf - shellcheck-v$SHELLCHECK_VERSION/shellcheck          && \
-    mv shellcheck-v$SHELLCHECK_VERSION/shellcheck /bin             && \
-    rmdir shellcheck-v$SHELLCHECK_VERSION
-RUN shellcheck -V
-
-# Set locale
-RUN locale-gen en_US.UTF-8
-
-# Print tool versions
-RUN bash --version | head -n 1
-RUN zsh --version
-RUN ksh --version || true
-RUN dpkg -s dash | grep ^Version | awk '{print $2}'
-RUN git --version
-RUN curl --version
-RUN wget --version
-
-# Add user "coder" as non-root user
-RUN useradd -ms /bin/bash coder
-
-# Copy and set permission for nvm directory
-COPY . /home/coder/.nvm/
-RUN chown coder:coder -R "home/coder/.nvm"
-
-# Set sudoer for "coder"
-RUN echo 'coder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-
-# Switch to user "coder" from now
+# User setup
+RUN apt-get update && apt-get install apt-utils sudo -y
+RUN useradd -m coder
+RUN echo "coder:coder" | chpasswd
+RUN adduser coder sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# /etc/passwd file(not needed since user is added to sudoers group)
+#mark:x:1001:1001:mark,,,:/home/mark:/bin/bash
+#[--] - [--] [--] [-----] [--------] [--------]
+#|    |   |    |     |         |        |
+#|    |   |    |     |         |        +-> 7. Login shell
+#|    |   |    |     |         +----------> 6. Home directory
+#|    |   |    |     +--------------------> 5. GECOS
+#|    |   |    +--------------------------> 4. GID
+#|    |   +-------------------------------> 3. UID
+#|    +-----------------------------------> 2. Password
+#+----------------------------------------> 1. Username
 USER coder
 
-# nvm and shell-bot
-RUN echo 'export NVM_DIR="/home/coder/.nvm"'                                       >> "/home/coder/.bashrc"
-RUN echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm' >> "/home/coder/.bashrc"
-RUN echo '[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> "/home/coder/.bashrc"
-#RUN echo 'cd /home/coder/.nvm/shell-bot && bash start.sh'                                       >> "/home/coder/.bashrc"
+# Apply Bot settings
+COPY shell-bot /home/coder/.shell-bot
 
-# nodejs and tools
-RUN source /home/coder/.nvm/nvm.sh   
-RUN    nvm install node                    
-RUN    npm install -g doctoc urchin eclint dockerfile_lint
-RUN    npm install --prefix "/home/coder/.nvm/"'
+# Use bash shell
+ENV SHELL=/bin/bash
 
-# Set WORKDIR to nvm directory
-WORKDIR /home/nvm/.nvm
+# Install packages
+RUN sudo apt-get update && sudo apt-get install nodejs npm -y
 
-ENTRYPOINT ["/bin/bash"]
+# Fix permissions for bot
+RUN sudo chown -R coder:coder /home/coder/.shell-bot
+
+# Entrypoint
+ENTRYPOINT ["cd /home/coder/.shell-bot/ && bash start.sh"]
