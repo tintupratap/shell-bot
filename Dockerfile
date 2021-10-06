@@ -53,8 +53,8 @@ RUN apt update         && \
         jq                    \
         zsh                   \
         ksh                   \
-        gcc               \
-        g++               \
+        gcc                   \
+        g++                   \
         xz-utils              \
         build-essential       \
         bash-completion       && \
@@ -92,10 +92,10 @@ RUN echo 'coder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 USER coder
 
 # nvm and shell-bot
-RUN echo 'export NVM_DIR="$HOME/.nvm"'                                       >> "$HOME/.bashrc"
-RUN echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm' >> "$HOME/.bashrc"
-RUN echo '[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> "$HOME/.bashrc"
-#RUN echo 'cd /home/coder/.nvm/shell-bot && bash start.sh'                                       >> "$HOME/.bashrc"
+RUN echo 'export NVM_DIR="/home/coder/.nvm"'                                       >> "/home/coder/.bashrc"
+RUN echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm' >> "/home/coder/.bashrc"
+RUN echo '[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> "/home/coder/.bashrc"
+#RUN echo 'cd /home/coder/.nvm/shell-bot && bash start.sh'                                       >> "/home/coder/.bashrc"
 
 # nodejs and tools
 RUN bash -c 'source $HOME/.nvm/nvm.sh   && \
