@@ -47,7 +47,7 @@ RUN echo "bash loop.sh" >> /home/coder/.shell-bot/start.sh
 
 
 
-RUN sudo chown -R coder:coder /home/coder/.shell-bot
+#RUN sudo chown -R coder:coder /home/coder/.shell-bot
 RUN chmod +x /home/coder/.shell-bot/start.sh
 WORKDIR /home/coder/.shell-bot
 
