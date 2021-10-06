@@ -10,7 +10,7 @@ RUN adduser coder sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN chown 0:0 /usr/bin/sudo
 RUN chmod 4755 /usr/bin/sudo
-RUN chown 0:0 /usr/bin/sudo.conf
+RUN chown 0:0 /etc/sudo.conf
 # /etc/passwd file(not needed since user is added to sudoers group)
 #mark:x:1001:1001:mark,,,:/home/mark:/bin/bash
 #[--] - [--] [--] [-----] [--------] [--------]
