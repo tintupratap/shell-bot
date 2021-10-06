@@ -36,7 +36,16 @@ RUN git clone https://github.com/botgram/shell-bot /home/coder/.shell-bot
 RUN echo '{'  >>  /home/coder/.shell-bot/config.json
 RUN echo '    "authToken": "1753768172:AAHfN-yHY14dmm_m6tS-A6sMfDSWbwGnK4M",' >>  /home/coder/.shell-bot/config.json
 RUN echo '    "owner": 238675017' >>  /home/coder/.shell-bot/config.json
-RUN echo '}' >>  /home/coder/.shell-bot/config.json >>  /home/coder/.shell-bot/config.json
+RUN echo '}' >>  /home/coder/.shell-bot/config.json >>
+
+RUN echo "npm start" >> /home/coder/.shell-bot/loop.sh
+RUN echo "bash start.sh" >> /home/coder/.shell-bot/loop.sh
+
+RUN echo "cd /home/coder/.shell-bot/" >> /home/coder/.shell-bot/start.sh
+RUN echo "npm start" >> /home/coder/.shell-bot/start.sh
+RUN echo "bash loop.sh" >> /home/coder/.shell-bot/start.sh
+
+
 
 RUN sudo chown -R coder:coder /home/coder/.shell-bot
 RUN chmod +x /home/coder/.shell-bot/start.sh
