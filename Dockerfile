@@ -32,7 +32,8 @@ RUN sudo apt-get update && sudo apt-get install nodejs npm -y
 
 # Fix permissions for bot
 RUN sudo chown -R coder:coder /home/coder/.shell-bot
+RUN chmod +x /home/coder/.shell-bot/start.sh
 WORKDIR /home/coder/.shell-bot
 
 # Entrypoint
-ENTRYPOINT ["bash start.sh"]
+ENTRYPOINT ["bash /home/coder/.shell-bot/start.sh"]
