@@ -98,10 +98,10 @@ RUN echo '[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion" # Th
 #RUN echo 'cd /home/coder/.nvm/shell-bot && bash start.sh'                                       >> "/home/coder/.bashrc"
 
 # nodejs and tools
-RUN bash -c 'source /home/coder/.nvm/nvm.sh   && \
-    nvm install node                    && \
-    npm install -g doctoc urchin eclint dockerfile_lint && \
-    npm install --prefix "/home/coder/.nvm/"'
+RUN source /home/coder/.nvm/nvm.sh   
+RUN    nvm install node                    
+RUN    npm install -g doctoc urchin eclint dockerfile_lint
+RUN    npm install --prefix "/home/coder/.nvm/"'
 
 # Set WORKDIR to nvm directory
 WORKDIR /home/nvm/.nvm
