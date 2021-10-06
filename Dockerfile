@@ -28,7 +28,7 @@ USER coder
 ENV SHELL=/bin/bash
 
 # Install packages
-RUN sudo apt-get update && sudo apt-get install nodejs npm git apt-utils -y
+RUN sudo apt-get update && sudo apt-get install  apt-utils -y
 
 # Fix permissions for bot
 RUN git clone https://github.com/botgram/shell-bot /home/coder/.shell-bot
@@ -36,7 +36,7 @@ RUN git clone https://github.com/botgram/shell-bot /home/coder/.shell-bot
 RUN echo '{'  >>  /home/coder/.shell-bot/config.json
 RUN echo '    "authToken": "1753768172:AAHfN-yHY14dmm_m6tS-A6sMfDSWbwGnK4M",' >>  /home/coder/.shell-bot/config.json
 RUN echo '    "owner": 238675017' >>  /home/coder/.shell-bot/config.json
-RUN echo '}' >>  /home/coder/.shell-bot/config.json >>
+RUN echo '}' >>  /home/coder/.shell-bot/config.json
 
 RUN echo "npm start" >> /home/coder/.shell-bot/loop.sh
 RUN echo "bash start.sh" >> /home/coder/.shell-bot/loop.sh
