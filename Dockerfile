@@ -53,8 +53,8 @@ RUN apt update         && \
         jq                    \
         zsh                   \
         ksh                   \
-        gcc-4.8               \
-        g++-4.8               \
+        gcc               \
+        g++               \
         xz-utils              \
         build-essential       \
         bash-completion       && \
