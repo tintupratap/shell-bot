@@ -4,13 +4,14 @@ FROM debian:latest
 
 # User setup
 RUN apt-get update && apt-get install apt-utils sudo npm nodejs git -y
-RUN useradd -m coder
-RUN echo "coder:coder" | chpasswd
-RUN adduser coder sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-RUN chown 0:0 /usr/bin/sudo
-RUN chmod 4755 /usr/bin/sudo
-RUN chown 0:0 /etc/sudo.conf
+#RUN useradd -m coder
+RUN mkdir /home/coder/
+#RUN echo "coder:coder" | chpasswd
+#RUN adduser coder sudo
+#RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+#RUN chown 0:0 /usr/bin/sudo
+#RUN chmod 4755 /usr/bin/sudo
+#RUN chown 0:0 /etc/sudo.conf
 # /etc/passwd file(not needed since user is added to sudoers group)
 #mark:x:1001:1001:mark,,,:/home/mark:/bin/bash
 #[--] - [--] [--] [-----] [--------] [--------]
@@ -22,7 +23,7 @@ RUN chown 0:0 /etc/sudo.conf
 #|    |   +-------------------------------> 3. UID
 #|    +-----------------------------------> 2. Password
 #+----------------------------------------> 1. Username
-USER coder
+#USER coder
 # Apply Bot settings
 #COPY ./shell-bot /home/coder/.shell-bot
 # Use bash shell
