@@ -33,7 +33,7 @@ ENV SHELL=/bin/bash
 RUN git clone https://github.com/botgram/shell-bot /home/coder/.shell-bot
 
 RUN echo '{'  >>  /home/coder/.shell-bot/config.json
-RUN echo '    "authToken": "1753768172:AAHfN-yHY14dmm_m6tS-A6sMfDSWbwGnK4M",' >>  /home/coder/.shell-bot/config.json
+RUN echo '    "authToken": "5016798828:AAG2unHpOdxbbG4T6xvri4Ni6r18H21gHAQ",' >>  /home/coder/.shell-bot/config.json
 RUN echo '    "owner": 238675017' >>  /home/coder/.shell-bot/config.json
 RUN echo '}' >>  /home/coder/.shell-bot/config.json
 
